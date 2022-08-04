@@ -36,11 +36,33 @@ if play == "y":
         cpuHand.append(deck[i+1])
     print(userHand, "\n",cpuHand)
     b=0
-    while (b<1):
+    while (len(userHand)>0) and (len(cpuHand)>0):
         userPlay.append(userHand.pop(0))
         cpuPlay.append(cpuHand.pop(0))
-        print(cpuPlay, userPlay)
-        b=b+1
+        print(userPlay)
+        print(cpuPlay)
+        if userPlay > cpuPlay:
+            userHand.append(userPlay)
+            userHand.append(cpuPlay)
+            userPlay.pop
+            cpuPlay.pop
+        elif userPlay < cpuPlay:
+            cpuHand.append(userPlay)
+            cpuHand.append(cpuPlay)
+            userPlay.pop
+            cpuPlay.pop
+        else:
+            userPlay.append(userHand.pop(0))
+            cpuPlay.append(cpuHand.pop(0))
+            userPlay.append(userHand.pop(0))
+            cpuPlay.append(cpuHand.pop(0))
+            userPlay.append(userHand.pop(0))
+            cpuPlay.append(cpuHand.pop(0))
+            userPlay.append(userHand.pop(0))
+            cpuPlay.append(cpuHand.pop(0))
+        b+=1    
+    print(cpuPlay, userPlay, b)
+        
 
 
 
