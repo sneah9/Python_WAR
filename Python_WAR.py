@@ -1,28 +1,23 @@
-""" 1. I will be creating the basic card game War; it is the first game that I learned to play with a 52 card deck and teaches about the basic ranking of cards.  
-
-2. I am unsure as of yet, which data structures I will be using for the deck of cards and the two players hands.  I will need to create a hierarchy of cards but will also need to disregard the suits in terms of value ranking.  I thought that a dictionary could work for the "deck" of cards in order to give the value of each card as the value in the dictionary for the game to compare logic.  The players hand will likely be a list so that we can keep it ordered and when the player wins a hand it will go at the "bottom" and they will play from the "top".
-
-3. the game should begin by allowing the player to enter their name, then welcome the player and prompt them to begin the game by pressing a start button, this will "shuffle and deal" the cards.
-
--the player will be prompted to start the hand by pressing a button and see the results
-
--each hand will be declared as a win, loss or draw which will create the special example of dealing the next 4 cards; next three "face down(value of these cards doesn't matter in game logic)" and the forth card "face up" in comparison to the computer player's card value.
-
--the game will end and the winner announced on screen when all the cards are in a single player's hand. """
-
-
 import random
 
 print("WAR: There is only so much within your control!")
-#user = input("Welcome, enter your name to begin:")
+user = input("Welcome warrior, enter your name to begin:")
 play = input("Shuffle and deal? y/n") 
+
 #create shuffled deck
 deck= []
 for suit in ['\u2663', '\u2660', '\u2665', '\u2666']:
-    for value in ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']:
-        deck.append(value+suit)
+    for card in ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']:  
+        deck.append(card+suit)
 
+#create dictionary of values for each card
+values= []
+for x in range(4):
+    for value in range(2,15):
+        values.append(value)
+key = dict(zip(deck, values))
 
+#create lists for each player's hand and the cards in play
 userHand= []
 userPlay= []
 cpuHand= []
@@ -35,42 +30,54 @@ if play == "y":
         userHand.append(deck[i])
         cpuHand.append(deck[i+1])
     print(userHand, "\n",cpuHand)
-    b=0
+    count=0
     while (len(userHand)>0) and (len(cpuHand)>0):
-        userPlay.append(userHand.pop(0))
-        cpuPlay.append(cpuHand.pop(0))
-        print(userPlay)
-        print(cpuPlay)
-        if userPlay > cpuPlay:
-            userHand.append(userPlay)
-            userHand.append(cpuPlay)
-            userPlay.pop
-            cpuPlay.pop
-        elif userPlay < cpuPlay:
-            cpuHand.append(userPlay)
-            cpuHand.append(cpuPlay)
-            userPlay.pop
-            cpuPlay.pop
+        if (len(userPlay) == 0) & (len(cpuPlay) ==0):
+            userPlay.append(userHand.pop(0))
+            cpuPlay.append(cpuHand.pop(0))
+            print(userPlay)
+            print(cpuPlay)
+
+        userValue = key.get(userPlay[0])
+        cpuValue = key.get(cpuPlay[0])
+        print (userValue)
+        print (cpuValue)
+
+        if userValue > cpuValue:
+            for x in range(len(userPlay)):
+                userHand.append(userPlay.pop(0))
+                userHand.append(cpuPlay.pop(0))
+
+        elif userValue < cpuValue:
+            for y in range(len(userPlay)):
+                cpuHand.append(userPlay.pop(0))
+                cpuHand.append(cpuPlay.pop(0))
+
         else:
-            userPlay.append(userHand.pop(0))
-            cpuPlay.append(cpuHand.pop(0))
-            userPlay.append(userHand.pop(0))
-            cpuPlay.append(cpuHand.pop(0))
-            userPlay.append(userHand.pop(0))
-            cpuPlay.append(cpuHand.pop(0))
-            userPlay.append(userHand.pop(0))
-            cpuPlay.append(cpuHand.pop(0))
-        b+=1    
-    print(cpuPlay, userPlay, b)
+            userPlay.insert(0, userHand.pop(0))
+            cpuPlay.insert(0, cpuHand.pop(0))
+            userPlay.insert(0, userHand.pop(0))
+            cpuPlay.insert(0, cpuHand.pop(0))
+            userPlay.insert(0, userHand.pop(0))
+            cpuPlay.insert(0, cpuHand.pop(0))
+            userPlay.insert(0, userHand.pop(0))
+            cpuPlay.insert(0, cpuHand.pop(0))
+            print(userPlay)
+            print(cpuPlay)
+            
+        count+=1
+        print(userPlay)
+        print(cpuPlay)    
+        print('You have', len(userHand), 'cards in your hand')
+        print('the computer has', len(cpuHand), 'cards in its hand')
+        print('end of round', count)
+    if cpuHand == 0:
+        print(user + ', you have won the WAR!')
+    else:
+        print(user + ', you have lost the WAR!')
+    print(cpuPlay, userPlay, count)
+
         
-
-
-
-
-
-
 else:
     print("Have a great day, come back when you are ready to engage in WAR")
     exit
-
-
