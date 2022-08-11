@@ -54,14 +54,10 @@ if play == "y":
                 cpuHand.append(cpuPlay.pop(0))
 
         else:
-            userPlay.insert(0, userHand.pop(0))
-            cpuPlay.insert(0, cpuHand.pop(0))
-            userPlay.insert(0, userHand.pop(0))
-            cpuPlay.insert(0, cpuHand.pop(0))
-            userPlay.insert(0, userHand.pop(0))
-            cpuPlay.insert(0, cpuHand.pop(0))
-            userPlay.insert(0, userHand.pop(0))
-            cpuPlay.insert(0, cpuHand.pop(0))
+            for z in range(4):
+                if (len(userHand) != 0) & (len(cpuHand) !=0):
+                    userPlay.insert(0, userHand.pop(0))
+                    cpuPlay.insert(0, cpuHand.pop(0))
             print(userPlay)
             print(cpuPlay)
             
