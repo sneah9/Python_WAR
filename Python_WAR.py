@@ -9,7 +9,7 @@ cpuPlay= []
 #create shuffled deck
 def create_deck():
     deck= []
-    for suit in ['\u2663', '\u2660', '\u2665', '\u2666']:
+    for suit in ['\u2663', '\u2660', '\u2665', '\u2666']:# define variables for unicode strings as hearts...
         for card in ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']:  
             deck.append(card+suit)
     return deck
@@ -29,7 +29,7 @@ def deal_deck2():
         userHand.append(deck[i])
         cpuHand.append(deck[i+1])
 
-def deal_hand():
+def deal_play():
     if (len(userPlay) == 0) & (len(cpuPlay) ==0):
         userPlay.append(userHand.pop(0))
         cpuPlay.append(cpuHand.pop(0))
@@ -67,8 +67,8 @@ if play == "y":
     deal_deck2()
     print(userHand, "\n",cpuHand)
     count=0
-    while (len(userHand)>0) and (len(cpuHand)>0):
-        deal_hand()
+    while (len(userHand)>0) and (len(cpuHand)>0) or (len(cpuPlay)>0):
+        deal_play()
         print(userPlay)
         print(cpuPlay)
         userValue, cpuValue = get_values()
@@ -82,6 +82,7 @@ if play == "y":
         print('You have', len(userHand), 'cards in your hand')
         print('the computer has', len(cpuHand), 'cards in its hand')
         print('end of round', count)
+
     if len(cpuHand) == 0:
         print(user + ', you have won the WAR!')
     else:
